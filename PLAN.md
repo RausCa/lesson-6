@@ -1,0 +1,2 @@
+create a new vue project for me. use the create-vue scaffolding tool with Vite. Turn on typescript and vue router. say no to pinia, testing, jsx, eslint, and prettifier. the the commands in the terminal for me
+Replace the starter content in this Vue project with a link-in-bio page. Here's what I want
