@@ -1,9 +1,16 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
 import { RouterView } from 'vue-router'
+import { useTheme as useVuetifyTheme } from 'vuetify'
 import AppHeader from './components/AppHeader.vue'
 import ProfilePanel from './components/ProfilePanel.vue'
+import { useTheme } from './composables/useTheme'
 import { currentUser, type UserProfile } from './data/dashboard'
+
+// Keep Vuetify's theme in sync with the app's dark/light toggle.
+const { theme } = useTheme()
+const vuetifyTheme = useVuetifyTheme()
+watch(theme, (value) => vuetifyTheme.change(value), { immediate: true })
 
 // Simulated authenticated session.
 const authenticated = ref(true)

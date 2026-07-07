@@ -27,8 +27,8 @@ function drill(target: string) {
           Moving freight, faster. Here's a real-time snapshot of your network —
           revenue, shipments and on-time performance, all in one place.
         </p>
-        <QuickLinks />
       </div>
+      <QuickLinks />
     </section>
 
     <!-- Summary snapshot -->
@@ -98,6 +98,7 @@ function drill(target: string) {
   display: flex;
   flex-direction: column;
   gap: 1.1rem;
+  margin-bottom: 2rem;
 }
 
 .dot {
