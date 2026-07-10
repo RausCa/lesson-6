@@ -39,7 +39,7 @@ export interface UserProfile {
 }
 
 export const currentUser: UserProfile = {
-  name: 'Ross Carter',
+  name: 'Ross Cattelan',
   role: 'Operations Lead',
   company: 'Fastforward Logistics',
   email: 'ross@fastforward.io',

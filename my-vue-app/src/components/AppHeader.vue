@@ -16,7 +16,7 @@ const { theme, setTheme } = useTheme()
           <path d="M4 13l6-6v4h8l-6 6v-4z" fill="currentColor" />
         </svg>
       </span>
-      <span class="brand-name">Fastforward</span>
+      <span class="brand-name">Fastforward Logistics</span>
     </div>
 
     <div class="actions">

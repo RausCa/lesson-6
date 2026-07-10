@@ -20,10 +20,7 @@ function drill(target: string) {
     <!-- Hero -->
     <section class="hero">
       <div class="hero-copy">
-        <span class="ff-chip">
-          <span class="dot" aria-hidden="true" /> Live operations dashboard
-        </span>
-        <h1>Fastforward Logistics</h1>
+        <h1>Operations Dashboard</h1>
         <p class="lede">
           Moving freight, faster. Here's a real-time snapshot of your network —
           revenue, shipments and on-time performance, all in one place.
@@ -109,14 +106,6 @@ function drill(target: string) {
   flex-direction: column;
   gap: 1.1rem;
   margin-bottom: 2rem;
-}
-
-.dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: var(--brand-orange);
-  box-shadow: 0 0 0 4px color-mix(in srgb, var(--brand-orange) 25%, transparent);
 }
 
 h1 {
