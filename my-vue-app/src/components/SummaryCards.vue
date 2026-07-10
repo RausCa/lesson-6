@@ -1,7 +1,9 @@
 <script setup lang="ts">
-import { summaryMetrics } from '../data/dashboard'
+import { useMonthFilter } from '../composables/useMonthFilter'
 
 const emit = defineEmits<{ (e: 'drill', target: string): void }>()
+
+const { summaryCards } = useMonthFilter()
 
 const accentVar: Record<string, string> = {
   orange: 'var(--chart-orange)',
@@ -13,7 +15,7 @@ const accentVar: Record<string, string> = {
 
 <template>
   <ul class="summary-grid">
-    <li v-for="metric in summaryMetrics" :key="metric.id">
+    <li v-for="metric in summaryCards" :key="metric.id">
       <button
         type="button"
         class="summary-card ff-card"
@@ -24,11 +26,12 @@ const accentVar: Record<string, string> = {
         <span class="top">
           <span class="label">{{ metric.label }}</span>
           <span
+            v-if="metric.showDelta"
             class="delta"
-            :class="metric.positiveIsGood ? 'good' : 'bad'"
+            :class="metric.isGood ? 'good' : 'bad'"
           >
             <span aria-hidden="true">{{ metric.trend === 'up' ? '▲' : '▼' }}</span>
-            {{ metric.delta }}
+            {{ metric.deltaLabel }}
           </span>
         </span>
         <span class="value">{{ metric.value }}</span>

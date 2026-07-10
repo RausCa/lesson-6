@@ -1,13 +1,16 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
-import { regions, shipments, statuses } from '../data/dashboard'
+import { regions, statuses } from '../data/dashboard'
+import { useMonthFilter } from '../composables/useMonthFilter'
+
+const { filteredShipments } = useMonthFilter()
 
 const query = ref('')
 const region = ref<'all' | string>('all')
 const status = ref<'all' | string>('all')
 
 const filtered = computed(() =>
-  shipments.filter((s) => {
+  filteredShipments.value.filter((s) => {
     const matchesQuery =
       query.value.trim() === '' ||
       `${s.id} ${s.route}`.toLowerCase().includes(query.value.trim().toLowerCase())
@@ -65,7 +68,7 @@ function clearAll() {
     </div>
 
     <p class="result-count" aria-live="polite">
-      Showing <strong>{{ filtered.length }}</strong> of {{ shipments.length }} shipments
+      Showing <strong>{{ filtered.length }}</strong> of {{ filteredShipments.length }} shipments
     </p>
 
     <div class="table-wrap" role="region" aria-label="Shipments" tabindex="0">

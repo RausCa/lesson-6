@@ -2,12 +2,16 @@
 import SummaryCards from '../components/SummaryCards.vue'
 import QuickLinks from '../components/QuickLinks.vue'
 import LinkButton from '../components/LinkButton.vue'
+import MonthPicker from '../components/MonthPicker.vue'
 import RevealSection from '../components/RevealSection.vue'
 import ShipmentExplorer from '../components/ShipmentExplorer.vue'
 import BarChart from '../components/charts/BarChart.vue'
 import LineChart from '../components/charts/LineChart.vue'
 import DonutChart from '../components/charts/DonutChart.vue'
-import { deliveryTrend, fleetMix, revenueByMonth } from '../data/dashboard'
+import { fleetMix } from '../data/dashboard'
+import { useMonthFilter } from '../composables/useMonthFilter'
+
+const { revenueSeries, deliverySeries, selectedLabel } = useMonthFilter()
 
 function drill(target: string) {
   const el = document.getElementById(target)
@@ -29,6 +33,15 @@ function drill(target: string) {
       <QuickLinks />
     </section>
 
+    <!-- Month filter toolbar -->
+    <section class="dashboard-toolbar">
+      <div class="toolbar-label">
+        <span class="eyebrow">Viewing</span>
+        <strong>{{ selectedLabel }}</strong>
+      </div>
+      <MonthPicker />
+    </section>
+
     <!-- Summary snapshot -->
     <section class="snapshot">
       <SummaryCards @drill="drill" />
@@ -39,11 +52,11 @@ function drill(target: string) {
       <RevealSection
         section-id="revenue-section"
         title="Revenue momentum"
-        subtitle="Monthly gross revenue in thousands of dollars (USD)."
+        subtitle="Gross revenue in thousands of dollars (USD), by month."
       >
         <BarChart
-          :data="revenueByMonth"
-          title="Monthly revenue in thousands of US dollars"
+          :data="revenueSeries"
+          title="Revenue in thousands of US dollars, by month"
           unit-prefix="$"
           unit-suffix="k"
           color="var(--chart-orange)"
@@ -53,11 +66,11 @@ function drill(target: string) {
       <RevealSection
         section-id="performance-section"
         title="On-time delivery performance"
-        subtitle="Percentage of loads delivered on schedule, last six months."
+        subtitle="Percentage of loads delivered on schedule, by month."
       >
         <LineChart
-          :data="deliveryTrend"
-          title="On-time delivery percentage over six months"
+          :data="deliverySeries"
+          title="On-time delivery percentage by month"
           unit-suffix="%"
           color="var(--chart-blue)"
         />
@@ -125,6 +138,38 @@ h1 {
 
 .snapshot {
   margin-bottom: clamp(2.5rem, 6vw, 4rem);
+}
+
+.dashboard-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+  padding: 1rem 1.2rem;
+  margin-bottom: 1.5rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  background: var(--surface);
+}
+
+.toolbar-label {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.2;
+}
+
+.toolbar-label .eyebrow {
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-faint);
+}
+
+.toolbar-label strong {
+  font-size: 1.25rem;
+  font-weight: 800;
 }
 
 .sections {

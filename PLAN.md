@@ -1,6 +1,10 @@
-create a new vue project for me. use the create-vue scaffolding tool with Vite. Turn on typescript and vue router. say no to pinia, testing, jsx, eslint, and prettifier. the the commands in the terminal for me
+# My Dashboard - Fastforward logistics
+
+## Description
+create a new vue project for me. use the create-vue scaffolding tool with Vite. Use Vite with typescript and vue router. Then add Vuetify 3 with Material Design Icons. Install chart.js and vue chart.js for data visualization. say no to pinia, testing, jsx, eslint, and prettifier. the commands in the terminal for me
 Replace the starter content in this Vue project with a link-in-bio page. Here's what I want:
 
+## Requirements
 - Multi card layout, Max-with 1440px
 - "Fastforward Logistics" as a heading, short description underneath
 - Authenticated users have their profile available to click to make changes to their user account
