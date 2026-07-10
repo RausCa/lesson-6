@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import SummaryCards from '../components/SummaryCards.vue'
 import QuickLinks from '../components/QuickLinks.vue'
+import LinkButton from '../components/LinkButton.vue'
 import RevealSection from '../components/RevealSection.vue'
 import ShipmentExplorer from '../components/ShipmentExplorer.vue'
 import BarChart from '../components/charts/BarChart.vue'
@@ -83,6 +84,15 @@ function drill(target: string) {
     </div>
 
     <footer class="foot">
+      <div class="foot-cta">
+        <LinkButton
+          label="Contact us"
+          subtitle="My mom will answer you back"
+          url="mailto:hello@fastforward.io"
+          icon="mdi-email-outline"
+          color="primary"
+        />
+      </div>
       <p>© {{ new Date().getFullYear() }} Fastforward Logistics — all data shown is illustrative.</p>
     </footer>
   </main>
@@ -141,5 +151,16 @@ h1 {
   color: var(--text-faint);
   font-size: 0.85rem;
   text-align: center;
+}
+
+.foot-cta {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+}
+
+.foot-cta :deep(.link-card) {
+  min-width: 260px;
+  text-align: left;
 }
 </style>
