@@ -1,8 +1,0 @@
-{
-  "$schema": "https://openapi.vercel.sh/vercel.json",
-  "framework": "vite",
-  "installCommand": "npm install --prefix my-vue-app",
-  "buildCommand": "npm run build --prefix my-vue-app",
-  "outputDirectory": "my-vue-app/dist",
-  "rewrites": [{ "source": "/(.*)", "destination": "/index.html" }]
-}
