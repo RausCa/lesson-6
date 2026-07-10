@@ -1,0 +1,109 @@
+{
+  "currentUser": {
+    "name": "Ross Cattelan",
+    "role": "Operations Lead",
+    "company": "Fastforward Logistics",
+    "email": "ross@fastforward.io",
+    "initials": "RC"
+  },
+  "monthLabels": ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+  "daysInMonth": [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31],
+  "monthlyData": [
+    { "month": "Jan", "revenue": 820, "activeShipments": 3120, "onTimeDelivery": 88.0, "delayedLoads": 210 },
+    { "month": "Feb", "revenue": 910, "activeShipments": 3260, "onTimeDelivery": 90.1, "delayedLoads": 188 },
+    { "month": "Mar", "revenue": 880, "activeShipments": 3180, "onTimeDelivery": 89.3, "delayedLoads": 195 },
+    { "month": "Apr", "revenue": 1015, "activeShipments": 3440, "onTimeDelivery": 91.6, "delayedLoads": 164 },
+    { "month": "May", "revenue": 1120, "activeShipments": 3610, "onTimeDelivery": 92.8, "delayedLoads": 150 },
+    { "month": "Jun", "revenue": 1240, "activeShipments": 3842, "onTimeDelivery": 94.7, "delayedLoads": 128 },
+    { "month": "Jul", "revenue": 1180, "activeShipments": 3760, "onTimeDelivery": 93.9, "delayedLoads": 139 },
+    { "month": "Aug", "revenue": 1290, "activeShipments": 3910, "onTimeDelivery": 94.2, "delayedLoads": 133 },
+    { "month": "Sep", "revenue": 1350, "activeShipments": 4020, "onTimeDelivery": 95.1, "delayedLoads": 121 },
+    { "month": "Oct", "revenue": 1410, "activeShipments": 4130, "onTimeDelivery": 95.6, "delayedLoads": 118 },
+    { "month": "Nov", "revenue": 1520, "activeShipments": 4280, "onTimeDelivery": 96.0, "delayedLoads": 109 },
+    { "month": "Dec", "revenue": 1600, "activeShipments": 4390, "onTimeDelivery": 96.4, "delayedLoads": 102 }
+  ],
+  "summaryConfigs": [
+    {
+      "id": "revenue",
+      "label": "Revenue",
+      "field": "revenue",
+      "accent": "orange",
+      "target": "revenue-section",
+      "positiveIsGood": true,
+      "aggregate": "sum",
+      "format": "money",
+      "allHint": "full-year total",
+      "monthHint": "vs. previous month"
+    },
+    {
+      "id": "shipments",
+      "label": "Active shipments",
+      "field": "activeShipments",
+      "accent": "blue",
+      "target": "shipments-section",
+      "positiveIsGood": true,
+      "aggregate": "avg",
+      "format": "number",
+      "allHint": "monthly average",
+      "monthHint": "vs. previous month"
+    },
+    {
+      "id": "ontime",
+      "label": "On-time delivery",
+      "field": "onTimeDelivery",
+      "accent": "purple",
+      "target": "performance-section",
+      "positiveIsGood": true,
+      "aggregate": "avg",
+      "format": "percent",
+      "allHint": "12-month average",
+      "monthHint": "vs. previous month"
+    },
+    {
+      "id": "delays",
+      "label": "Delayed loads",
+      "field": "delayedLoads",
+      "accent": "magenta",
+      "target": "shipments-section",
+      "positiveIsGood": false,
+      "aggregate": "sum",
+      "format": "number",
+      "allHint": "full-year total",
+      "monthHint": "vs. previous month"
+    }
+  ],
+  "fleetMix": [
+    { "label": "Road freight", "value": 46 },
+    { "label": "Air cargo", "value": 24 },
+    { "label": "Rail", "value": 18 },
+    { "label": "Sea", "value": 12 }
+  ],
+  "regions": ["North", "South", "East", "West"],
+  "statuses": ["In transit", "Delivered", "Delayed", "Scheduled"],
+  "shipments": [
+    { "id": "FF-10400", "route": "Chicago → Dallas", "region": "South", "status": "In transit", "eta": "Jan 1", "value": 7000, "month": 0 },
+    { "id": "FF-10401", "route": "Seattle → Denver", "region": "West", "status": "Delivered", "eta": "Delivered Jan 8", "value": 10137, "month": 0 },
+    { "id": "FF-10402", "route": "Atlanta → Miami", "region": "South", "status": "Delayed", "eta": "Feb 15", "value": 13274, "month": 1 },
+    { "id": "FF-10403", "route": "Boston → New York", "region": "East", "status": "Scheduled", "eta": "Feb 22", "value": 16411, "month": 1 },
+    { "id": "FF-10404", "route": "Phoenix → Las Vegas", "region": "West", "status": "In transit", "eta": "Mar 2", "value": 19548, "month": 2 },
+    { "id": "FF-10405", "route": "Detroit → Cleveland", "region": "North", "status": "Delivered", "eta": "Delivered Mar 9", "value": 22685, "month": 2 },
+    { "id": "FF-10406", "route": "Portland → Boise", "region": "West", "status": "Delayed", "eta": "Apr 16", "value": 25822, "month": 3 },
+    { "id": "FF-10407", "route": "Newark → Philadelphia", "region": "East", "status": "Scheduled", "eta": "Apr 23", "value": 28959, "month": 3 },
+    { "id": "FF-10408", "route": "Houston → Austin", "region": "South", "status": "In transit", "eta": "May 3", "value": 32096, "month": 4 },
+    { "id": "FF-10409", "route": "Denver → Salt Lake City", "region": "West", "status": "Delivered", "eta": "Delivered May 10", "value": 35233, "month": 4 },
+    { "id": "FF-10410", "route": "Chicago → Minneapolis", "region": "North", "status": "Delayed", "eta": "Jun 17", "value": 38370, "month": 5 },
+    { "id": "FF-10411", "route": "Miami → Orlando", "region": "South", "status": "Scheduled", "eta": "Jun 24", "value": 41507, "month": 5 },
+    { "id": "FF-10412", "route": "Chicago → Dallas", "region": "South", "status": "In transit", "eta": "Jul 4", "value": 44644, "month": 6 },
+    { "id": "FF-10413", "route": "Seattle → Denver", "region": "West", "status": "Delivered", "eta": "Delivered Jul 11", "value": 7781, "month": 6 },
+    { "id": "FF-10414", "route": "Atlanta → Miami", "region": "South", "status": "Delayed", "eta": "Aug 18", "value": 10918, "month": 7 },
+    { "id": "FF-10415", "route": "Boston → New York", "region": "East", "status": "Scheduled", "eta": "Aug 25", "value": 14055, "month": 7 },
+    { "id": "FF-10416", "route": "Phoenix → Las Vegas", "region": "West", "status": "In transit", "eta": "Sep 5", "value": 17192, "month": 8 },
+    { "id": "FF-10417", "route": "Detroit → Cleveland", "region": "North", "status": "Delivered", "eta": "Delivered Sep 12", "value": 20329, "month": 8 },
+    { "id": "FF-10418", "route": "Portland → Boise", "region": "West", "status": "Delayed", "eta": "Oct 19", "value": 23466, "month": 9 },
+    { "id": "FF-10419", "route": "Newark → Philadelphia", "region": "East", "status": "Scheduled", "eta": "Oct 26", "value": 26603, "month": 9 },
+    { "id": "FF-10420", "route": "Houston → Austin", "region": "South", "status": "In transit", "eta": "Nov 6", "value": 29740, "month": 10 },
+    { "id": "FF-10421", "route": "Denver → Salt Lake City", "region": "West", "status": "Delivered", "eta": "Delivered Nov 13", "value": 32877, "month": 10 },
+    { "id": "FF-10422", "route": "Chicago → Minneapolis", "region": "North", "status": "Delayed", "eta": "Dec 20", "value": 36014, "month": 11 },
+    { "id": "FF-10423", "route": "Miami → Orlando", "region": "South", "status": "Scheduled", "eta": "Dec 27", "value": 39151, "month": 11 }
+  ]
+}
