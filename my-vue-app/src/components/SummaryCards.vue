@@ -53,6 +53,7 @@ const accentVar: Record<string, string> = {
 .summary-card {
   position: relative;
   width: 100%;
+  height: 100%;
   text-align: left;
   padding: 1.4rem;
   display: flex;

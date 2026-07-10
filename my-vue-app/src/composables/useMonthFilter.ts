@@ -1,5 +1,7 @@
 import { computed, ref } from 'vue'
 import {
+  fleetMix,
+  fleetMixByMonth,
   getDailyData,
   monthLabels,
   monthlyData,
@@ -31,6 +33,12 @@ export interface SummaryCard {
 export interface MonthOption {
   title: string
   value: MonthSelection
+}
+
+export interface Insights {
+  summary: string[]
+  concerns: string[]
+  actions: string[]
 }
 
 // Shared singleton selection so every component reacts to the same picker.
@@ -107,12 +115,102 @@ export function useMonthFilter() {
     return getDailyData(monthIndex).map((d) => ({ label: String(d.day), value: d[field] }))
   }
 
+  /** On-time delivery: 12 months when "all", otherwise weekly averages for the month. */
+  function weeklyOnTime(monthIndex: number): ChartPoint[] {
+    const daily = getDailyData(monthIndex)
+    const weeks: ChartPoint[] = []
+    for (let i = 0; i < daily.length; i += 7) {
+      const chunk = daily.slice(i, i + 7)
+      const avg = chunk.reduce((a, d) => a + d.onTimeDelivery, 0) / chunk.length
+      weeks.push({ label: `Wk ${weeks.length + 1}`, value: Math.round(avg * 10) / 10 })
+    }
+    return weeks
+  }
+
   const revenueSeries = computed(() => series('revenue'))
-  const deliverySeries = computed(() => series('onTimeDelivery'))
+  const deliverySeries = computed<ChartPoint[]>(() =>
+    isAll.value
+      ? monthlyData.map((m) => ({ label: m.month, value: m.onTimeDelivery }))
+      : weeklyOnTime(selected.value as number),
+  )
+
+  /** Fleet mix: overall split when "all", otherwise the selected month's split. */
+  const fleetMixSeries = computed<ChartPoint[]>(() =>
+    isAll.value ? fleetMix : (fleetMixByMonth[selected.value as number] ?? fleetMix),
+  )
 
   const filteredShipments = computed(() =>
     isAll.value ? shipments : shipments.filter((s) => s.month === selected.value),
   )
+
+  /** Auto-generated narrative: summary, concerns and recommended actions. */
+  const insights = computed<Insights>(() => {
+    const TARGET = 95
+
+    if (isAll.value) {
+      const totalRevenue = monthlyData.reduce((a, m) => a + m.revenue, 0)
+      const avgOnTime = monthlyData.reduce((a, m) => a + m.onTimeDelivery, 0) / monthlyData.length
+      const totalDelayed = monthlyData.reduce((a, m) => a + m.delayedLoads, 0)
+      const best = monthlyData.reduce((a, b) => (b.onTimeDelivery > a.onTimeDelivery ? b : a))
+      const worst = monthlyData.reduce((a, b) => (b.onTimeDelivery < a.onTimeDelivery ? b : a))
+      const first = monthlyData[0]!
+      const last = monthlyData[monthlyData.length - 1]!
+      const trendUp = last.onTimeDelivery >= first.onTimeDelivery
+
+      const summary = [
+        `Full-year revenue totaled $${(totalRevenue / 1000).toFixed(2)}M across all 12 months.`,
+        `On-time delivery averaged ${avgOnTime.toFixed(1)}% with ${totalDelayed.toLocaleString()} delayed loads in total.`,
+        `Service levels trended ${trendUp ? 'upward' : 'downward'} from ${first.month} to ${last.month}.`,
+      ]
+      const concerns = [`${worst.month} was the weakest month at ${worst.onTimeDelivery}% on-time.`]
+      if (avgOnTime < TARGET) {
+        concerns.push(`The annual on-time average (${avgOnTime.toFixed(1)}%) sits below the ${TARGET}% target.`)
+      }
+      const actions = [
+        `Replicate ${best.month}'s playbook — it reached ${best.onTimeDelivery}% on-time.`,
+        `Build a recovery plan for softer months like ${worst.month}.`,
+      ]
+      return { summary, concerns, actions }
+    }
+
+    const i = selected.value as number
+    const m = monthlyData[i]!
+    const prev = i > 0 ? monthlyData[i - 1]! : null
+    const revDelta = prev ? ((m.revenue - prev.revenue) / prev.revenue) * 100 : null
+
+    const summary = [
+      `Revenue reached $${(m.revenue / 1000).toFixed(2)}M${revDelta !== null ? ` (${formatPct(revDelta)} vs ${prev!.month})` : ''}.`,
+      `On-time delivery ran at ${m.onTimeDelivery}% with ${m.delayedLoads} delayed loads.`,
+      `Around ${m.activeShipments.toLocaleString()} active shipments moved through the network.`,
+    ]
+
+    const concerns: string[] = []
+    if (m.onTimeDelivery < TARGET) {
+      concerns.push(`On-time delivery (${m.onTimeDelivery}%) is below the ${TARGET}% service target.`)
+    }
+    if (prev && m.delayedLoads > prev.delayedLoads) {
+      concerns.push(`Delayed loads climbed to ${m.delayedLoads} (from ${prev.delayedLoads} in ${prev.month}).`)
+    }
+    if (prev && m.revenue < prev.revenue) {
+      concerns.push(`Revenue slipped ${formatPct(revDelta!)} versus ${prev.month}.`)
+    }
+    if (concerns.length === 0) {
+      concerns.push('No red flags — every metric is trending in the right direction.')
+    }
+
+    const actions: string[] = []
+    if (m.onTimeDelivery < TARGET) {
+      actions.push('Investigate the lanes driving late deliveries and rebalance carrier capacity.')
+    }
+    if (prev && m.delayedLoads > prev.delayedLoads) {
+      actions.push(`Clear the backlog of ${m.delayedLoads} delayed loads before month-end.`)
+    }
+    if (actions.length === 0) {
+      actions.push('Maintain momentum — reinvest in the top-performing routes.')
+    }
+    actions.push("Share this month's numbers with the ops team in the weekly review.")
+    return { summary, concerns, actions }
+  })
 
   return {
     selected,
@@ -122,6 +220,8 @@ export function useMonthFilter() {
     summaryCards,
     revenueSeries,
     deliverySeries,
+    fleetMixSeries,
     filteredShipments,
+    insights,
   }
 }

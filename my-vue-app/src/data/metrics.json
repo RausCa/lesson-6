@@ -1,7 +1,7 @@
 {
   "currentUser": {
     "name": "Ross Cattelan",
-    "role": "Operations Lead",
+    "role": "Chief Bottle Washer",
     "company": "Fastforward Logistics",
     "email": "ross@fastforward.io",
     "initials": "RC"
@@ -77,6 +77,20 @@
     { "label": "Air cargo", "value": 24 },
     { "label": "Rail", "value": 18 },
     { "label": "Sea", "value": 12 }
+  ],
+  "fleetMixByMonth": [
+    [{ "label": "Road freight", "value": 48 }, { "label": "Air cargo", "value": 22 }, { "label": "Rail", "value": 18 }, { "label": "Sea", "value": 12 }],
+    [{ "label": "Road freight", "value": 45 }, { "label": "Air cargo", "value": 25 }, { "label": "Rail", "value": 18 }, { "label": "Sea", "value": 12 }],
+    [{ "label": "Road freight", "value": 47 }, { "label": "Air cargo", "value": 23 }, { "label": "Rail", "value": 17 }, { "label": "Sea", "value": 13 }],
+    [{ "label": "Road freight", "value": 44 }, { "label": "Air cargo", "value": 26 }, { "label": "Rail", "value": 18 }, { "label": "Sea", "value": 12 }],
+    [{ "label": "Road freight", "value": 46 }, { "label": "Air cargo", "value": 24 }, { "label": "Rail", "value": 19 }, { "label": "Sea", "value": 11 }],
+    [{ "label": "Road freight", "value": 46 }, { "label": "Air cargo", "value": 24 }, { "label": "Rail", "value": 18 }, { "label": "Sea", "value": 12 }],
+    [{ "label": "Road freight", "value": 43 }, { "label": "Air cargo", "value": 27 }, { "label": "Rail", "value": 18 }, { "label": "Sea", "value": 12 }],
+    [{ "label": "Road freight", "value": 45 }, { "label": "Air cargo", "value": 25 }, { "label": "Rail", "value": 17 }, { "label": "Sea", "value": 13 }],
+    [{ "label": "Road freight", "value": 47 }, { "label": "Air cargo", "value": 23 }, { "label": "Rail", "value": 18 }, { "label": "Sea", "value": 12 }],
+    [{ "label": "Road freight", "value": 44 }, { "label": "Air cargo", "value": 25 }, { "label": "Rail", "value": 19 }, { "label": "Sea", "value": 12 }],
+    [{ "label": "Road freight", "value": 42 }, { "label": "Air cargo", "value": 26 }, { "label": "Rail", "value": 20 }, { "label": "Sea", "value": 12 }],
+    [{ "label": "Road freight", "value": 41 }, { "label": "Air cargo", "value": 27 }, { "label": "Rail", "value": 20 }, { "label": "Sea", "value": 12 }]
   ],
   "regions": ["North", "South", "East", "West"],
   "statuses": ["In transit", "Delivered", "Delayed", "Scheduled"],

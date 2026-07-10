@@ -42,6 +42,7 @@ withDefaults(
 
 <style scoped>
 .link-card {
+  height: 100%;
   transition:
     transform 0.3s var(--ease),
     box-shadow 0.3s var(--ease);

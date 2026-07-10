@@ -33,7 +33,8 @@ const { target, isVisible } = useInView<HTMLDivElement>()
 const { colors } = useChartTheme()
 
 function fmt(v: number) {
-  return `${v}${props.unitSuffix}`
+  // Trim floating-point noise from auto-generated axis ticks (e.g. 90.00000001).
+  return `${Number(v.toFixed(1))}${props.unitSuffix}`
 }
 
 const chartData = computed<ChartData<'line'>>(() => {

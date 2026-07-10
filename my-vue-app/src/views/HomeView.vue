@@ -3,15 +3,15 @@ import SummaryCards from '../components/SummaryCards.vue'
 import QuickLinks from '../components/QuickLinks.vue'
 import LinkButton from '../components/LinkButton.vue'
 import MonthPicker from '../components/MonthPicker.vue'
+import InsightsCard from '../components/InsightsCard.vue'
 import RevealSection from '../components/RevealSection.vue'
 import ShipmentExplorer from '../components/ShipmentExplorer.vue'
 import BarChart from '../components/charts/BarChart.vue'
 import LineChart from '../components/charts/LineChart.vue'
 import DonutChart from '../components/charts/DonutChart.vue'
-import { fleetMix } from '../data/dashboard'
 import { useMonthFilter } from '../composables/useMonthFilter'
 
-const { revenueSeries, deliverySeries, selectedLabel } = useMonthFilter()
+const { revenueSeries, deliverySeries, fleetMixSeries, selectedLabel } = useMonthFilter()
 
 function drill(target: string) {
   const el = document.getElementById(target)
@@ -30,6 +30,7 @@ function drill(target: string) {
           revenue, shipments and on-time performance, all in one place.
         </p>
       </div>
+      <InsightsCard class="hero-insights" />
       <QuickLinks />
     </section>
 
@@ -63,26 +64,28 @@ function drill(target: string) {
         />
       </RevealSection>
 
-      <RevealSection
-        section-id="performance-section"
-        title="On-time delivery performance"
-        subtitle="Percentage of loads delivered on schedule, by month."
-      >
-        <LineChart
-          :data="deliverySeries"
-          title="On-time delivery percentage by month"
-          unit-suffix="%"
-          color="var(--chart-blue)"
-        />
-      </RevealSection>
+      <div class="chart-row">
+        <RevealSection
+          section-id="performance-section"
+          title="On-time delivery performance"
+          subtitle="Percentage of loads delivered on schedule."
+        >
+          <LineChart
+            :data="deliverySeries"
+            title="On-time delivery percentage"
+            unit-suffix="%"
+            color="var(--chart-blue)"
+          />
+        </RevealSection>
 
-      <RevealSection
-        section-id="fleet-section"
-        title="Fleet & modal mix"
-        subtitle="Share of volume moved by transport mode."
-      >
-        <DonutChart :data="fleetMix" title="Share of volume by transport mode" />
-      </RevealSection>
+        <RevealSection
+          section-id="fleet-section"
+          title="Fleet & modal mix"
+          subtitle="Share of volume moved by transport mode."
+        >
+          <DonutChart :data="fleetMixSeries" title="Share of volume by transport mode" />
+        </RevealSection>
+      </div>
 
       <RevealSection
         section-id="shipments-section"
@@ -118,6 +121,10 @@ function drill(target: string) {
   display: flex;
   flex-direction: column;
   gap: 1.1rem;
+  margin-bottom: 2rem;
+}
+
+.hero-insights {
   margin-bottom: 2rem;
 }
 
@@ -176,6 +183,23 @@ h1 {
   display: flex;
   flex-direction: column;
   gap: clamp(2.5rem, 6vw, 4rem);
+}
+
+.chart-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(1.5rem, 4vw, 2.5rem);
+  align-items: stretch;
+}
+
+.chart-row > * {
+  min-width: 0;
+}
+
+@media (max-width: 900px) {
+  .chart-row {
+    grid-template-columns: 1fr;
+  }
 }
 
 .foot {

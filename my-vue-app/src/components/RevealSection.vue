@@ -20,6 +20,9 @@ const { target, isVisible } = useInView<HTMLElement>({ threshold: 0.15 })
 <style scoped>
 section {
   scroll-margin-top: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 }
 
 .section-head {
@@ -39,5 +42,6 @@ section {
 
 .section-body {
   padding: clamp(1.2rem, 3vw, 1.8rem);
+  flex: 1;
 }
 </style>

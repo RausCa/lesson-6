@@ -32,10 +32,10 @@ const links: QuickLink[] = [
     color: 'info',
   },
   {
-    title: 'Careers',
-    subtitle: "We're hiring drivers & dispatchers",
+    title: 'Request support',
+    subtitle: 'Open a support ticket',
     url: '#',
-    icon: 'mdi-rocket-launch',
+    icon: 'mdi-ticket-confirmation-outline',
     color: 'magenta',
   },
 ]
